@@ -23,10 +23,10 @@ public class AuditController {
     // this method serves purpose of manual testing of publishing message
     @GetMapping("/pub")
     public String publish() throws IOException {
-        String key = "test_"+ UUID.randomUUID();
-        String contents = "We have triggered this test from /api/pub";
+        String key = "audit_test_"+ UUID.randomUUID();
+        String contents = "[{\"message\":\"We have manually triggered this test from Audit /api/pub\"}]";
 
-        this.saveFile.writeToS3("city_"+ key, contents);
+        this.saveFile.writeToS3(key, contents);
 
         return "S3 file uploaded with filename:" + key;
     }

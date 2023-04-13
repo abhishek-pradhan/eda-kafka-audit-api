@@ -1,4 +1,4 @@
-package com.mts.auditapi.events;
+package com.mts.dto;
 
 import lombok.Data;
 

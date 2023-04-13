@@ -19,6 +19,6 @@ COPY --from=build /workspace/app/target/*.jar app.jar
 ENTRYPOINT ["java","-jar","/app.jar"]
 
 # Docker build image & run it
-# docker build -t eda-kafka-city-api .
-# docker run --name=eda-kafka-city-api -d -p 8081:8081 eda-kafka-city-api
-# http://localhost:8081/actuator/health
+# docker build -t eda-kafka-audit-api .
+# docker run --name=eda-kafka-audit-api -d -p 8083:8083 eda-kafka-audit-api
+# http://localhost:8083/actuator/health

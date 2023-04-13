@@ -1,5 +1,6 @@
 package com.mts.auditapi.service;
 
+import com.amazonaws.regions.Region;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +13,6 @@ import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
-import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 
 @Service
@@ -26,13 +26,13 @@ public class SaveFile {
     public void writeToS3(String key, String contents) {
         try
         {
-            AmazonS3 s3 = new AmazonS3Client();
-
-            String bucketName =this.bucket_name;
+            String bucketName = bucket_name;
             String bucketKey = key;
 
-            PutObjectRequest request = new PutObjectRequest(bucketName, key, createSampleFile(bucketKey, contents));
-            request.setCannedAcl(CannedAccessControlList.PublicRead);
+            logger.info("bucket_name=" + bucketName + " file=" + bucketKey);
+
+            AmazonS3 s3 = new AmazonS3Client();
+            PutObjectRequest request = new PutObjectRequest(bucketName, bucketKey, createSampleFile(bucketKey, contents));
             s3.putObject(request);
 
             logger.info("File uploaded successfully to S3 bucket");
@@ -65,7 +65,7 @@ public class SaveFile {
      * @throws IOException
      */
     private static File createSampleFile(String fileName, String fileContents) throws IOException {
-        File file = File.createTempFile(fileName, ".json");
+        File file = File.createTempFile(fileName, ".json"); // todo: suffix is not working in my case
         file.deleteOnExit();
 
         Writer writer = new OutputStreamWriter(new FileOutputStream(file));
