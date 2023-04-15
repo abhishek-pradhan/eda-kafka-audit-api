@@ -18,7 +18,7 @@ VOLUME /tmp
 COPY --from=build /workspace/app/target/*.jar app.jar
 ENTRYPOINT ["java","-jar","/app.jar"]
 
-# Docker build image & run it
+# Docker build image & run it:
 # docker build -t eda-kafka-audit-api .
-# docker run --name=eda-kafka-audit-api -d -p 8083:8083 eda-kafka-audit-api
+# docker run --name="eda-kafka-audit-api" -d -p 8083:8083 --env="BOOTSTRAP_BROKERS=192.168.61.96:9092" --env="BUCKET_NAME=eda-kafka-prj-bckt" --env="AWS_ACCESS_KEY_ID=abhi" --env="AWS_SECRET_ACCESS_KEY=shek" --env="AWS_DEFAULT_REGION=ap-south-1" eda-kafka-audit-api
 # http://localhost:8083/actuator/health
